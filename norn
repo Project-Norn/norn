@@ -1,0 +1,57 @@
+#!/bin/bash
+
+VERDANDI=$(dirname $0)/bin/verdandi
+SKULD=$(dirname $0)/bin/skuld
+URD=$(dirname $0)/bin/urd
+
+function print_usage() {
+  echo "Usage: norn [compile, build, run] <input_file> <output_file>"
+  exit 0
+}
+
+if [ $# -lt 2 ]; then
+  print_usage
+fi
+
+compile=0
+build=0
+run=0
+
+case "$1" in
+  'compile')
+    compile=1
+    shift
+    ;;
+  'build')
+    build=1
+    shift
+    ;;
+  'run')
+    run=1
+    shift
+    ;;
+  *)
+    print_usage
+    shift
+    ;;
+esac
+
+input_file="$1"
+output_file="$2"
+
+if [ $compile = 1 ]; then
+  $VERDANDI "$input_file" "$output_file"
+fi
+
+if [ $build = 1 ]; then
+  sfile=$(mktemp)
+  $VERDANDI "$input_file" "$sfile" \
+  && $SKULD "$sfile" "$output_file"
+fi
+
+if [ $run = 1 ]; then
+  sfile=$(mktemp)
+  $VERDANDI "$input_file" "$sfile" \
+  && $SKULD "$sfile" "$output_file" \
+  && $URD "$output_file"
+fi
