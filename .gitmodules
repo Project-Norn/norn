@@ -1,9 +1,0 @@
-[submodule "urd"]
-	path = urd
-	url = git@github.com:Project-Norn/urd
-[submodule "verdandi"]
-	path = verdandi
-	url = git@github.com:Project-Norn/verdandi
-[submodule "skuld"]
-	path = skuld
-	url = git@github.com:Project-Norn/skuld
