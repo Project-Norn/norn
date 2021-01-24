@@ -2,7 +2,7 @@ FILE=hoge.vd
 
 build:
 	cat ./src/stdlib.vd ./src/${FILE} > ./tmp/${FILE}
-	./bin/sigrun ./tmp/${FILE} ./tmp/tmp.s
+	./bin/sigrun --tse ./tmp/${FILE} ./tmp/tmp.s
 	./bin/rota ./tmp/tmp.s ./tmp/tmp.o
 	./bin/rota ./src/crt0.s ./tmp/crt0.o
 	./bin/herja ./tmp/crt0.o ./tmp/tmp.o ./a.out
